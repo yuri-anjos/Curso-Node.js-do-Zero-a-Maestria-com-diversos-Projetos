@@ -1,0 +1,13 @@
+Install package on dev environment
+npm install [name] --save-dev
+
+Update package
+npm update [name]
+npx npm-check-updates -u
+
+Install global package
+npm install -g [name] 
+npm link [name]
+
+Uninstall package
+npm uninstall [name]
