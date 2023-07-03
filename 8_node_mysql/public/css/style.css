@@ -1,0 +1,88 @@
+* {
+    font-family: Helvetica;
+}
+
+h1 {
+    text-align: center;
+}
+
+/* Books */
+.bold {
+    font-weight: bold;
+}
+
+.books-container {
+    width: 60%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.books-container>div {
+    padding: 10px 20px;
+    border-bottom: 2px gray solid;
+}
+
+.books-container>a {
+    padding: 10px;
+}
+
+/* Form */
+.form {
+    width: 60%;
+    margin: 0 auto;
+}
+
+.form input[type='submit'] {
+    width: 100%;
+}
+
+.form-control {
+    display: flex;
+    flex-direction: column;
+    margin: 10px 0;
+}
+
+.form-control label {
+    font-weight: bold;
+}
+
+.form-control input {
+    margin: 10px 0;
+    padding: 5px;
+}
+
+/* Book */
+.book-page {
+    width: 60%;
+    margin: 0 auto;
+    text-align: center;
+
+}
+
+.container {
+    text-align: center;
+}
+
+.actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.actions a {
+    margin-right: 10px;
+}
+
+.actions input[type='submit'] {
+    padding: 10px;
+    background-color: rgb(168, 57, 57);
+    border: none;
+    color: white;
+    border-radius: 3px;
+}
+
+.actions input[type='submit']:hover {
+    background-color: rgb(223, 97, 97);
+    box-shadow: 0 0 0 2px rgb(148, 47, 47);
+}
