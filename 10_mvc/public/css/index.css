@@ -1,0 +1,138 @@
+:root {
+    --red: rgb(218, 67, 67);
+    --darker-red: rgb(138, 29, 29);
+}
+
+* {
+    font-family: Helvetica;
+}
+
+body {
+    margin: 0;
+}
+
+header {
+    background-color: var(--red);
+    color: white;
+    padding: 1em 2em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav ul {
+    display: flex;
+    gap: 1em;
+    margin: 0;
+    padding: 0 1em;
+}
+
+nav ul li {
+    list-style: none;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: white;
+    padding: 0.5em;
+}
+
+nav ul li a:hover {
+    text-decoration: none;
+    color: white;
+}
+
+.container {
+    max-width: 85%;
+    margin: 2em auto;
+}
+
+.actions {
+    display: flex;
+    gap: 1em;
+}
+
+.actions form {
+    margin: 0;
+}
+
+.actions button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+}
+
+.actions i {
+    font-size: 24px;
+    color: #333;
+}
+
+.actions i:hover {
+    color: var(--red);
+}
+
+.task-list {
+    list-style: none;
+    padding: 0;
+}
+
+.task-list li {
+    padding: 1.5em .5em;
+    border-bottom: 1px solid rgb(195, 195, 195);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.task-list .title {
+    font-weight: bold;
+    color: var(--red);
+    transition: .3s;
+    font-size: 24px;
+    text-decoration: none;
+}
+
+.task-list .title:hover {
+    font-weight: bold;
+    color: var(--darker-red);
+}
+
+.title.done {
+    text-decoration: line-through;
+    color: #ccc
+}
+
+/* FORM */
+form {
+    margin-top: 1.5em;
+}
+
+.form-control {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+    margin-bottom: 1.5em;
+}
+
+.form-control label {
+    font-weight: bold;
+}
+
+.form-control input,
+textarea {
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px #bfbfbf solid;
+}
+
+form input[type='submit'] {
+    background-color: var(--red);
+    border: none;
+    color: white;
+    cursor: pointer;
+    padding: 0.5em 1.5em;
+    border-radius: 5px;
+    font-size: 16px;
+}
