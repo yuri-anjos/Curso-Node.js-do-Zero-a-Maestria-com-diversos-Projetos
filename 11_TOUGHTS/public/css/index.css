@@ -1,0 +1,306 @@
+:root {
+    --bg: #222;
+    --black: #333;
+    --orange: #f6982d;
+    --dark-blue: #004085;
+    --medium-blue: #b8daff;
+    --light-blue: #cce5ff;
+    --gray: #fff;
+}
+
+* {
+    font-family: Helvetica;
+    color: white;
+    margin: 0;
+    padding: 0;
+    background-color: var(--bg);
+}
+
+body {
+    position: relative;
+    min-height: calc(100vh - 136px);
+}
+
+/* HEADER */
+#logo img {
+    height: 40px;
+}
+
+nav {
+    padding: 1em 2em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: var(--orange) 2px solid;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    gap: 1em;
+}
+
+
+nav ul li a {
+    text-decoration: none;
+    padding: 0.5em;
+    font-weight: bold;
+    transition: .3s;
+}
+
+nav ul li a:hover {
+    color: var(--orange)
+}
+
+/* FOOTER */
+footer {
+    height: 120px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-top: var(--orange) 2px solid;
+    position: absolute;
+    width: 100%;
+    bottom: -136px;
+}
+
+footer span {
+    font-weight: bold;
+    color: var(--orange)
+}
+
+.container {
+    min-height: 50vh;
+    width: 90%;
+    margin: 1em auto;
+    padding: 1em;
+}
+
+/* AUTH FORM */
+.auth-container form {
+    margin-top: 1.5em;
+}
+
+.auth-container {
+    max-width: 50vw;
+    margin: 0 auto;
+}
+
+.auth-container h2 {
+    border-left: var(--orange) 5px solid;
+    padding-left: .5em;
+}
+
+.auth-container p {
+    margin-top: 1em;
+}
+
+.auth-container p a {
+    color: var(--orange);
+    font-size: 20px;
+}
+
+/* MESSAGES */
+.message {
+    padding: 1em;
+    color: var(--dark-blue);
+    background-color: var(--light-blue);
+    border: var(--medium-blue) 1px solid;
+    border-radius: 5px;
+    text-align: center;
+    margin: 0 auto 2em;
+    max-width: 70%;
+}
+
+/* FORM */
+.form-control {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+    margin-bottom: 1.5em;
+}
+
+.form-control label {
+    font-weight: bold;
+}
+
+.form-control input {
+    padding: 8px;
+    border-radius: 5px;
+    background-color: var(--bg);
+    border: 2px solid var(--orange);
+    font-size: 18px;
+}
+
+/* Tought form */
+.tought-form-container form {
+    margin-top: 1.5em;
+}
+
+.tought-form-container a {
+    color: var(--orange);
+}
+
+.tought-form-container a:hover {
+    color: var(--gray);
+}
+
+.tought-form-container h2 {
+    border-left: var(--orange) 5px solid;
+    padding-left: .5em;
+    margin-top: .5em;
+}
+
+/* Dashboard */
+.dashboard {
+    display: flex;
+    flex-direction: column;
+}
+
+.dashboard h3 {
+    margin-top: 1.5em;
+}
+
+.dashboard ul {
+    list-style: none;
+    margin-top: 1em;
+}
+
+.dashboard ul li {
+    padding: 1em;
+    border-bottom: 1.5px solid var(--orange);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.dashboard ul li>span {
+    font-weight: bold;
+    font-size: 20px;
+    color: var(--orange);
+    margin-right: 2em;
+}
+
+.dashboard .title-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-left: var(--orange) 5px solid;
+    padding-left: .5em;
+}
+
+.dashboard .actions .btn {
+    color: white;
+    box-shadow: 0 0 0 1.5px white;
+}
+
+.dashboard p a {
+    color: var(--orange)
+}
+
+/* Home */
+.home-header {
+    display: flex;
+    flex-direction: column;
+    max-width: 50vw;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.home-header span {
+    color: var(--orange);
+}
+
+.home-header h1,
+.home-header p {
+    margin-bottom: 1em;
+}
+
+.home-header .search-form {
+    display: flex;
+}
+
+.home-header .search-form input {
+    border: none;
+    border-bottom: 1.5px solid var(--gray);
+    padding: .5em;
+    margin-right: 1em;
+    width: 100%;
+    font-size: 16px;
+}
+
+.home-header .search-form input::placeholder {
+    color: white;
+}
+
+.order-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5em;
+    margin: 2em auto;
+}
+
+.order-container span {
+    font-weight: bold;
+    color: white;
+}
+
+.order-container button {
+    border: none;
+    cursor: pointer;
+
+}
+
+.order-container button i {
+    font-size: 16px;
+}
+
+.order-container button i:hover,
+.order-container a:hover {
+    color: var(--orange);
+}
+
+.toughts-container figure {
+    border-top: 2px var(--black) solid;
+    padding: 2em;
+    max-width: 50vw;
+    margin: 0 auto;
+}
+
+.toughts-container blockquote {
+    font-style: italic;
+    font-size: 32px;
+    margin-bottom: .5em;
+}
+
+.toughts-container span {
+    color: var(--orange);
+}
+
+/* Buttons */
+.btn {
+    border: none;
+    cursor: pointer;
+    padding: 0.3em 1em;
+    border-radius: 5px;
+    font-size: 18px;
+    box-shadow: 0 0 0 1.5px var(--orange);
+    font-weight: bold;
+    text-decoration: none;
+    color: var(--orange);
+    transition: .3s;
+}
+
+.btn:hover {
+    background-color: var(--orange);
+    color: white;
+}
+
+.actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1em;
+}

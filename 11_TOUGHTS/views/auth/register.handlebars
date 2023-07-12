@@ -1,0 +1,24 @@
+<div class="auth-container">
+    <h2>Registrar</h2>
+    <form action="/signup/api" method="post">
+        <div class="form-control">
+            <label for="username">Nome:</label>
+            <input type="" name="username" id="username" placeholder="Digite seu nome de usuário" required>
+        </div>
+        <div class="form-control">
+            <label for="email">E-mail:</label>
+            <input type="email" name="email" id="email" placeholder="Digite seu email" required>
+        </div>
+        <div class="form-control">
+            <label for="password">Senha:</label>
+            <input type="password" name="password" id="password" placeholder="Digite sua senha" required>
+        </div>
+        <div class="form-control">
+            <label for="confirmPassword">Confirmar Senha:</label>
+            <input type="password" name="confirmPassword" id="confirmPassword" placeholder="Confirme sua senha"
+                required>
+        </div>
+        <button type="submit" class="btn">Cadastrar</button>
+        <p>Já tem conta? <a href="/login">Clique Aqui!</a></p>
+    </form>
+</div>
