@@ -1,0 +1,23 @@
+<h2>Editando: {{product.name}}</h2>
+
+<form action="/products/{{product._id}}/edit/api" method="post">
+    <div class="form-control">
+        <label for="name">Nome:</label>
+        <input type="text" name="name" id="name" placeholder="Digite o nome do produto" value="{{product.name}}">
+    </div>
+    <div class="form-control">
+        <label for="image">Imagem:</label>
+        <input type="text" name="image" id="image" placeholder="Digite a url da imagem" value="{{product.image}}">
+    </div>
+    <div class="form-control">
+        <label for="price">Preço:</label>
+        <input type="text" name="price" id="price" placeholder="Digite o preço do produto" value="{{product.price}}">
+    </div>
+
+    <div class="form-control">
+        <label for="description">Descrição:</label>
+        <textarea type="text" name="description" id="description"
+            placeholder="Digite o nome do produto">{{product.description}}</textarea>
+    </div>
+    <button type="submit" class="btn">Salvar</button>
+</form>
