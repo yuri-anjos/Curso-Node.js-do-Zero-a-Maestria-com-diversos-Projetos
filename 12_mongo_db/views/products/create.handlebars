@@ -1,0 +1,22 @@
+<h2>Criar Produto</h2>
+
+<form action="/products/create/api" method="post">
+    <div class="form-control">
+        <label for="name">Nome:</label>
+        <input type="text" name="name" id="name" placeholder="Digite o nome do produto">
+    </div>
+    <div class="form-control">
+        <label for="image">Imagem:</label>
+        <input type="text" name="image" id="image" placeholder="Digite a url da imagem">
+    </div>
+    <div class="form-control">
+        <label for="price">Preço:</label>
+        <input type="text" name="price" id="price" placeholder="Digite o preço do produto">
+    </div>
+
+    <div class="form-control">
+        <label for="description">Descrição:</label>
+        <textarea type="text" name="description" id="description" placeholder="Digite o nome do produto"></textarea>
+    </div>
+    <button type="submit" class="btn">Salvar</button>
+</form>
