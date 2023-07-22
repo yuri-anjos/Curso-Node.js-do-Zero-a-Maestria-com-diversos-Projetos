@@ -1,0 +1,22 @@
+:root {
+  --primary: #16479d;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  box-sizing: border-box;
+
+}
+
+h1 {
+  color: var(--primary);
+  margin-bottom: 1em;
+  font-size: 32px;
+}
+
+.bold {
+  font-weight: bold;
+  color: var(--primary);
+}
