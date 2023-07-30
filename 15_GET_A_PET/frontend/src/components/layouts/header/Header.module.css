@@ -1,0 +1,49 @@
+.header h1 {
+  margin: 0;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--primary-yellow);
+  padding: 1em 2em;
+}
+
+.header_logo {
+  display: flex;
+  align-items: center;
+  gap: 1em;
+}
+
+.header_logo img {
+  width: 50px;
+}
+
+.header ul {
+  display: flex;
+  gap: 1em;
+}
+
+.header li {
+  font-weight: bold;
+  border-radius: 5px;
+  padding: 0.5em 1em;
+  transition: 0.4s;
+  color: var(--primary-blue);
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.header li a {
+  color: var(--primary-blue);
+}
+
+.header li:hover {
+  background-color: var(--primary-blue);
+  color: white;
+}
+
+.header li:hover a {
+  color: white;
+}

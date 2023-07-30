@@ -1,0 +1,92 @@
+.petlist_header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 2em;
+}
+
+.petlist_header h1 {
+	margin: 0;
+}
+
+.petlist_header a {
+	background-color: var(--primary-blue);
+	border-radius: 8px;
+	color: white;
+	border: none;
+	font-size: 18px;
+	font-weight: bold;
+	padding: 0.5em 1em;
+	transition: 0.4s;
+}
+
+.petlist_header a:hover {
+	background-color: white;
+	color: var(--primary-blue);
+	box-shadow: 0 0 0 2px var(--primary-blue);
+}
+
+.petlist_container {
+	display: flex;
+	flex-direction: column;
+}
+
+.petlist_row {
+	display: flex;
+	flex-direction: row;
+	padding: 1em;
+	margin: 1em;
+	align-items: center;
+	width: 100%;
+	border-bottom: 2px solid var(--primary-blue);
+}
+
+.petlist_row img {
+	margin-right: 1em;
+}
+
+.actions {
+	display: flex;
+	gap: 1em;
+	margin-left: auto;
+}
+
+.actions a,
+.actions button {
+	padding: 0.5em 1em;
+	border-radius: 8px;
+	background-color: white;
+	color: var(--primary-blue);
+	box-shadow: 0 0 0 2px var(--primary-blue);
+	font-size: 14px;
+	font-weight: bold;
+	border: none;
+	transition: 0.4s;
+	cursor: pointer;
+}
+
+.actions a:hover,
+.actions button:hover {
+	background-color: var(--primary-blue);
+	color: white;
+}
+
+.actions .conclude_btn {
+	color: white;
+	background-color: #25b456;
+	box-shadow: 0 0 0 2px #5d9370;
+}
+
+.actions .conclude_btn:hover {
+	color: #25b456;
+	box-shadow: 0 0 0 2px #25b456;
+	background-color: white;
+}
+
+.contact {
+	margin-left: 2em;
+}
+
+.contact p {
+	margin: 0.5em;
+}

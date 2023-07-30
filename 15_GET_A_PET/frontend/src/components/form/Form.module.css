@@ -1,0 +1,28 @@
+.form_container {
+    max-width: 500px;
+    margin: 0 auto;
+    background-color: white;
+    border-radius: 15px;
+}
+
+.form_container input[type='submit'] {
+    background-color: var(--green);
+    border-radius: 8px;
+    color: white;
+    border: none;
+    min-width: 100px;
+    min-height: 2.5em;
+    width: 100%;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.form_container p {
+    margin-top: 16px;
+}
+
+.form_container p a {
+    color: var(--primary-blue);
+    text-decoration: underline;
+}
