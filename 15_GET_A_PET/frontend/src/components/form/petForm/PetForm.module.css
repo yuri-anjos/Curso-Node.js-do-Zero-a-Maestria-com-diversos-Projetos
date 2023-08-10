@@ -1,11 +1,12 @@
 .preview_pet_images {
 	display: flex;
 	justify-content: center;
-	margin: 1em 0;
-	gap: 0.5em;
+	margin: 2em auto;
+	gap: 1em;
+	flex-wrap: wrap;
+	width: 100%;
 }
 
 .preview_pet_images img {
 	height: 125px;
-	margin: 1em 0;
 }

@@ -3,6 +3,7 @@ import style from "./Home.module.css";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import api from "../../../utils/api";
+import { Buffer } from "buffer";
 
 const Home = () => {
 	const [pets, setPets] = useState([]);
@@ -10,11 +11,22 @@ const Home = () => {
 	// const pageSize = 5;
 
 	useEffect(() => {
-		api.get("/pet").then(({ data }) => {
-			setPets([...data.pets]);
-		});
+		getPets();
 	}, []);
 
+	const getPets = () => {
+		api.get("/pet").then(({ data }) => {
+			const pets = data.pets.map((pet) => {
+				const buffer = Buffer.from(pet.images[0].data).toString("base64");
+				const photo = `data:${pet.images[0].contentType};base64,${buffer}`;
+				pet.photo = photo;
+
+				return pet;
+			});
+
+			setPets(pets);
+		});
+	};
 	return (
 		<section>
 			<div className={style.pet_home_header}>
@@ -25,12 +37,11 @@ const Home = () => {
 				{pets.length ? (
 					pets.map((pet, index) => (
 						<div className={style.pet_home_item} key={index}>
-							<div
+							<img
 								className={style.pet_home_item_image}
-								style={{
-									backgroundImage: `url(${process.env.REACT_APP_API}/images/pets/${pet.images[0]})`,
-								}}
-							></div>
+								src={pet.photo}
+								alt={pet.name}
+							/>
 							<h3>{pet.name}</h3>
 							<p>
 								<span className="bold">Peso: </span> {pet.weigth}kg

@@ -6,6 +6,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const fs = require("fs");
 const { isValidObjectId } = require("mongoose");
+const { log } = require("console");
 
 module.exports = class UserController {
 	static async register(req, res) {
@@ -93,9 +94,7 @@ module.exports = class UserController {
 		if (token) {
 			try {
 				const decoded = jwt.verify(token, "secret");
-				const user = await User.findById(decoded.id).select(
-					"-password"
-				);
+				const user = await User.findById(decoded.id).select("-password");
 				res.status(200).send(user);
 				return;
 			} catch {}
@@ -121,7 +120,7 @@ module.exports = class UserController {
 			res.status(200).json({ user });
 		} catch (error) {
 			res.status(500).json({ message: "Erro inesperado!" });
-			console.log("Error: " + error);
+			console.error("Error: " + error);
 		}
 	}
 
@@ -161,8 +160,14 @@ module.exports = class UserController {
 			name,
 			email,
 			phone,
-			image: req.file?.filename || "",
 		};
+
+		if (req.file) {
+			updatedData.image = {
+				data: req.file.buffer,
+				contentType: req.file.mimetype,
+			};
+		}
 
 		if (password || confirmPassword) {
 			if (password !== confirmPassword) {
@@ -176,16 +181,32 @@ module.exports = class UserController {
 			updatedData.password = hash;
 		}
 
-		if (user.image) {
-			fs.unlink(`public/images/users/${user.image}`, (err) => {
-				if (err) console.log(err);
-			});
-		}
-
 		try {
 			await User.updateOne({ _id: user._id }, updatedData);
 			res.status(200).json({
 				message: "Usuário atualizado com sucesso!",
+			});
+		} catch (error) {
+			console.error("Error: " + error);
+			res.status(500).json({ message: "Erro inesperado!", error });
+		}
+	}
+
+	static async deletePhoto(req, res) {
+		const token = getToken(req);
+		const user = await getUserByToken(token);
+
+		if (!user) {
+			res.status(422).json({ message: "Usuário não encontrado!" });
+			return;
+		}
+
+		user.image = null;
+
+		try {
+			await user.save();
+			res.status(200).json({
+				message: "Imagem removida com sucesso!",
 			});
 		} catch (error) {
 			console.error("Error: " + error);

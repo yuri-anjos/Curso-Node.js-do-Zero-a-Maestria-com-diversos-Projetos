@@ -41,8 +41,8 @@
 	border-bottom: 2px solid var(--primary-blue);
 }
 
-.petlist_row img {
-	margin-right: 1em;
+.petlist_row > span {
+	margin-left: 1em;
 }
 
 .actions {

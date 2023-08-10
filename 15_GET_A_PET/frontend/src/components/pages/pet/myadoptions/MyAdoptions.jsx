@@ -3,17 +3,29 @@ import dashStyle from "../Dashboard.module.css";
 import { useEffect, useState } from "react";
 import api from "../../../../utils/api";
 import RoundedImage from "../../../layouts/roundedImage/RoundedImage";
+import { Buffer } from "buffer";
 
 const MyAdoptions = () => {
 	const [pets, setPets] = useState([]);
 
 	useEffect(() => {
+		getPets();
+	}, []);
+
+	const getPets = () => {
 		api.get("/pet/myadoptions")
 			.then(({ data }) => {
-				setPets(data.pets);
+				const pets = data.pets.map((pet) => {
+					const buffer = Buffer.from(pet.images[0].data).toString("base64");
+					const photo = `data:${pet.images[0].contentType};base64,${buffer}`;
+					pet.photo = photo;
+					return pet;
+				});
+
+				setPets(pets);
 			})
 			.catch(() => {});
-	}, []);
+	};
 
 	return (
 		<section>
@@ -24,11 +36,7 @@ const MyAdoptions = () => {
 				{pets.length ? (
 					pets.map((pet, index) => (
 						<div key={index} className={dashStyle.petlist_row}>
-							<RoundedImage
-								src={`${process.env.REACT_APP_API}/images/pets/${pet.images[0]}`}
-								alt={pet.name}
-								width={"px100"}
-							/>
+							<RoundedImage src={pet.photo} alt={pet.name + index} width={"px100"} />
 							<span className="bold">{pet.name}</span>
 							<div className={dashStyle.contact}>
 								<p>

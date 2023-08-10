@@ -5,19 +5,31 @@ import { Link } from "react-router-dom";
 import api from "../../../../utils/api";
 import RoundedImage from "../../../layouts/roundedImage/RoundedImage";
 import useFlashMessage from "../../../../hooks/useFlashMessage";
+import { Buffer } from "buffer";
 
 const MyPets = () => {
 	const [pets, setPets] = useState([]);
 	const { setFlashMessage } = useFlashMessage();
 
 	useEffect(() => {
-		api.get("/pet/mypets")
-			.then(({ data }) => {
-				setPets(data.pets);
-			})
-			.catch(() => {});
+		getPets();
 	}, []);
 
+	const getPets = () => {
+		api.get("/pet/mypets")
+			.then(({ data }) => {
+				const pets = data.pets.map((pet) => {
+					const buffer = Buffer.from(pet.images[0].data).toString("base64");
+					const photo = `data:${pet.images[0].contentType};base64,${buffer}`;
+					pet.photo = photo;
+
+					return pet;
+				});
+
+				setPets(pets);
+			})
+			.catch(() => {});
+	};
 	const removePet = (id) => {
 		let message;
 		let type;
@@ -68,11 +80,7 @@ const MyPets = () => {
 				{pets.length ? (
 					pets.map((pet) => (
 						<div className={dashStyle.petlist_row} key={pet._id}>
-							<RoundedImage
-								src={`${process.env.REACT_APP_API}/images/pets/${pet.images[0]}`}
-								alt={pet.name}
-								width={"px100"}
-							/>
+							<RoundedImage src={pet.photo} alt={pet.name} width={"px100"} />
 							<span className="bold">{pet.name}</span>
 							<div className={dashStyle.actions}>
 								{pet.available ? (

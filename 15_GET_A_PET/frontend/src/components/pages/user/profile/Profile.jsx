@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import api from "../../../../utils/api";
 import useFlashMessage from "../../../../hooks/useFlashMessage";
 import RoundedImage from "../../../layouts/roundedImage/RoundedImage";
+import { Buffer } from "buffer";
 
 const Profile = () => {
 	const [form, setForm] = useState({});
@@ -13,10 +14,13 @@ const Profile = () => {
 	const { setFlashMessage } = useFlashMessage();
 
 	useEffect(() => {
-		console.log(process.env);
-		console.log(process.env.REACT_APP_API);
-
 		api.get("/user/checkuser").then(({ data }) => {
+			if (data.image) {
+				const buffer = Buffer.from(data.image.data).toString("base64");
+				const photo = `data:${data.image.contentType};base64,${buffer}`;
+				setPreview(photo);
+			}
+
 			setForm(data);
 		});
 	}, []);
@@ -26,7 +30,7 @@ const Profile = () => {
 	};
 
 	const handleOnFileChange = (e) => {
-		setPreview(e.target.files[0]);
+		setPreview(URL.createObjectURL(e.target.files[0]));
 		setForm({ ...form, [e.target.name]: e.target.files[0] });
 	};
 
@@ -59,22 +63,30 @@ const Profile = () => {
 			});
 	};
 
+	const handlePhotoDelete = () => {
+		api.delete("/user/photo")
+			.then(() => {
+				setPreview(null);
+				setForm({ ...form, image: null });
+			})
+			.catch((error) => {
+				const message = error.response?.data.message || "Erro inesperado!";
+				const type = "error";
+				setFlashMessage(message, type);
+			});
+	};
+
 	return (
 		<section className={formStyle.form_container}>
 			<div className={profileStyle.profile_container}>
 				<h1>Perfil</h1>
-				{(form.image || preview) && (
-					<>
-						<RoundedImage
-							src={
-								preview
-									? URL.createObjectURL(preview)
-									: `${process.env.REACT_APP_API}/images/users/${form.image}`
-							}
-							alt={form.name}
-						/>
-					</>
-				)}
+				<RoundedImage
+					src={preview}
+					alt={form.name}
+					htmlFor="image"
+					deletable={form.image}
+					handleDelete={handlePhotoDelete}
+				/>
 			</div>
 
 			<form onSubmit={handleSubmit}>
@@ -83,6 +95,7 @@ const Profile = () => {
 					type="file"
 					name="image"
 					handleOnChange={handleOnFileChange}
+					hidden={true}
 				/>
 
 				<Input
