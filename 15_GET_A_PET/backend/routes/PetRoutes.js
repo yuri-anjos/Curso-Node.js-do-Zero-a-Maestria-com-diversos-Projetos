@@ -12,5 +12,6 @@ router.delete("/:id", verifyToken, PetController.deletePetById);
 router.put("/:id", verifyToken, imageUpload.array("images"), PetController.edit);
 router.patch("/:id/schedule", verifyToken, PetController.schedule);
 router.patch("/:id/conclude", verifyToken, PetController.concludeAdoption);
+router.patch("/:id/refuse-adopter", verifyToken, PetController.refuseAdopter);
 
 module.exports = router;

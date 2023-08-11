@@ -30,6 +30,7 @@ const MyPets = () => {
 			})
 			.catch(() => {});
 	};
+
 	const removePet = (id) => {
 		let message;
 		let type;
@@ -70,6 +71,25 @@ const MyPets = () => {
 			});
 	};
 
+	const refuseAdopter = (id) => {
+		let message;
+		let type;
+
+		api.patch(`/pet/${id}/refuse-adopter`)
+			.then(({ data }) => {
+				message = data.message;
+				type = "success";
+			})
+			.catch((error) => {
+				message = error.response?.data.message || "Erro inesperado!";
+				type = "error";
+				console.error("Error: " + error);
+			})
+			.finally(() => {
+				setFlashMessage(message, type);
+			});
+	};
+
 	return (
 		<section>
 			<div className={dashStyle.petlist_header}>
@@ -80,18 +100,28 @@ const MyPets = () => {
 				{pets.length ? (
 					pets.map((pet) => (
 						<div className={dashStyle.petlist_row} key={pet._id}>
-							<RoundedImage src={pet.photo} alt={pet.name} width={"px100"} />
-							<span className="bold">{pet.name}</span>
+							<div className={dashStyle.pet_info}>
+								<RoundedImage src={pet.photo} alt={pet.name} width={"px100"} />
+								<span className="bold">{pet.name}</span>
+							</div>
 							<div className={dashStyle.actions}>
 								{pet.available ? (
 									<>
 										{pet.adopter && (
-											<button
-												className={dashStyle.conclude_btn}
-												onClick={() => concludeAdoption(pet._id)}
-											>
-												Concluir Adoção
-											</button>
+											<>
+												<button
+													className={dashStyle.refuse_btn}
+													onClick={() => refuseAdopter(pet._id)}
+												>
+													Rejeitar {pet.adopter.name}
+												</button>
+												<button
+													className={dashStyle.conclude_btn}
+													onClick={() => concludeAdoption(pet._id)}
+												>
+													Concluir Adoção
+												</button>
+											</>
 										)}
 										<Link to={`/pet/${pet._id}/edit`}>Editar</Link>
 										<button onClick={() => removePet(pet._id)}>Excluir</button>

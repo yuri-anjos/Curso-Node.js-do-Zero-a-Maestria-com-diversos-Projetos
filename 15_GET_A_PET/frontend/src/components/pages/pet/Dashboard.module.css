@@ -31,24 +31,32 @@
 	flex-direction: column;
 }
 
+.petlist_container .petlist_row:first-child {
+	border-top: 2px solid var(--primary-blue);
+}
+
 .petlist_row {
 	display: flex;
 	flex-direction: row;
-	padding: 1em;
-	margin: 1em;
+	padding: 1.5em;
+	justify-content: space-between;
 	align-items: center;
 	width: 100%;
 	border-bottom: 2px solid var(--primary-blue);
 }
 
-.petlist_row > span {
+.petlist_row .pet_info span {
 	margin-left: 1em;
+}
+
+.petlist_row .pet_info {
+	display: flex;
+	align-items: center;
 }
 
 .actions {
 	display: flex;
 	gap: 1em;
-	margin-left: auto;
 }
 
 .actions a,
@@ -74,12 +82,24 @@
 .actions .conclude_btn {
 	color: white;
 	background-color: #25b456;
-	box-shadow: 0 0 0 2px #5d9370;
+	box-shadow: 0 0 0 2px #5ca174;
 }
 
 .actions .conclude_btn:hover {
 	color: #25b456;
 	box-shadow: 0 0 0 2px #25b456;
+	background-color: white;
+}
+
+.actions .refuse_btn {
+	color: white;
+	background-color: #e62539;
+	box-shadow: 0 0 0 2px #b21c2b;
+}
+
+.actions .refuse_btn:hover {
+	color: #e62539;
+	box-shadow: 0 0 0 2px #e62539;
 	background-color: white;
 }
 

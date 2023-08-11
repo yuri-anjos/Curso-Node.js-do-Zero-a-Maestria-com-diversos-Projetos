@@ -31,6 +31,7 @@ const Pet = mongoose.model(
 				type: Boolean,
 				required: true,
 			},
+			refused: { type: [Schema.Types.ObjectId] },
 			user: Object,
 			adopter: Object,
 		},

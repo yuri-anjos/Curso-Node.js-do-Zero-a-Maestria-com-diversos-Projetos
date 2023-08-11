@@ -43,6 +43,7 @@ module.exports = class PetController {
 			weigth,
 			color,
 			available: true,
+			refused: [],
 			images: images.map((image) => {
 				return { data: image.buffer, contentType: image.mimetype };
 			}),
@@ -237,6 +238,22 @@ module.exports = class PetController {
 			return;
 		}
 
+		if (pet.adopter?._id) {
+			res.status(422).json({
+				message:
+					"Este Pet não está aceitando visitas no momento, por favor tente mais tarde!",
+			});
+			return;
+		}
+
+		const isPersonRefused = pet.refused.find((person) => user._id.equals(person));
+		if (isPersonRefused) {
+			res.status(422).json({
+				message: "Sinto muito, você não pode mais agendar uma visita a este Pet!",
+			});
+			return;
+		}
+
 		pet.adopter = {
 			_id: user._id,
 			name: user.name,
@@ -276,6 +293,45 @@ module.exports = class PetController {
 		await pet.save();
 		res.status(200).json({
 			message: "Parabéns, o ciclo de adoção foi finalizado com sucesso!",
+		});
+	}
+
+	static async refuseAdopter(req, res) {
+		const id = req.params.id;
+
+		const token = getToken(req);
+		const user = await getUserByToken(token);
+
+		if (!isValidObjectId(id)) {
+			res.status(422).json({ message: "ID inválido!" });
+			return;
+		}
+
+		const pet = await Pet.findById(id);
+		if (!pet) {
+			res.status(404).json({ message: "Pet não encontrado!" });
+			return;
+		}
+
+		if (!pet.user._id.equals(user._id)) {
+			res.status(403).json({ message: "Acesso negado!" });
+			return;
+		}
+
+		if (!pet.adopter) {
+			res.status(422).json({
+				message: "Não existe um adotande para você recusar!",
+			});
+			return;
+		}
+
+		const adopter = pet.adopter;
+		pet.refused.push(adopter._id);
+		pet.adopter = null;
+
+		await pet.save();
+		res.status(200).json({
+			message: `Você rejeitou o adotante ${adopter.name}!`,
 		});
 	}
 };
