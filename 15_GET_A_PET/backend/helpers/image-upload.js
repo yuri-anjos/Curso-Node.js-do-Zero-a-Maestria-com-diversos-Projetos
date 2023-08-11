@@ -1,30 +1,6 @@
-const multer = require('multer')
-const path = require('path')
+const multer = require("multer");
 
-const imageStorage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        let folder = ''
-        if (req.baseUrl.includes("user")) {
-            folder = 'users'
-        } else if (req.baseUrl.includes('pet')) {
-            folder = 'pets'
-        }
+const storage = multer.memoryStorage();
+const imageUpload = multer({ storage: storage });
 
-        cb(null, `public/images/${folder}`)
-    },
-    filename: (req, file, cb) => {
-        cb(null, Date.now() + String(Math.floor(Math.random() * 1000)) + path.extname(file.originalname))
-    },
-})
-
-const imageUpload = multer({
-    storage: imageStorage,
-    fileFilter(req, file, cb) {
-        if (!file.originalname.match(/\.(png|jpg)$/)) {
-            return cb(new Error('Por favor, envie apenas jpg ou png!'))
-        }
-        cb(undefined, true)
-    }
-})
-
-module.exports = { imageUpload }
+module.exports = { imageUpload };

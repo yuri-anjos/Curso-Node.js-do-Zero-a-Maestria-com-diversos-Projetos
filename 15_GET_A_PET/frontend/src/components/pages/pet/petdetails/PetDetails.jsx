@@ -4,7 +4,7 @@ import { useContext, useEffect, useState } from "react";
 import api from "../../../../utils/api";
 import useFlashMessage from "../../../../hooks/useFlashMessage";
 import { UserContext } from "../../../../context/UserContext";
-
+import { Buffer } from "buffer";
 const PetDetails = () => {
 	const [pet, setPet] = useState({});
 	const { id } = useParams();
@@ -12,12 +12,22 @@ const PetDetails = () => {
 	const { authenticated } = useContext(UserContext);
 
 	useEffect(() => {
+		getPet();
+	}, [id]);
+
+	const getPet = () => {
 		if (id) {
 			api.get(`/pet/${id}`).then(({ data }) => {
+				const photos = data.pet.images.map((image) => {
+					const buffer = Buffer.from(image.data).toString("base64");
+					const photo = `data:${image.contentType};base64,${buffer}`;
+					return photo;
+				});
+				data.pet.photos = photos;
 				setPet(data.pet);
 			});
 		}
-	}, [id]);
+	};
 
 	const schedule = () => {
 		let message;
@@ -47,12 +57,8 @@ const PetDetails = () => {
 						<p>Se tiver interesse, marque uma visita para conhecê-lo!</p>
 					</div>
 					<div className={style.pet_details_images}>
-						{pet.images.map((image, index) => (
-							<img
-								src={`${process.env.REACT_APP_API}/images/pets/${image}`}
-								alt={pet.name}
-								key={index}
-							/>
+						{pet.photos.map((photo, index) => (
+							<img src={photo} alt={pet.name + index} key={index} />
 						))}
 					</div>
 					<p>

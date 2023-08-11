@@ -43,7 +43,9 @@ module.exports = class PetController {
 			weigth,
 			color,
 			available: true,
-			images: images.map((image) => image.filename),
+			images: images.map((image) => {
+				return { data: image.buffer, contentType: image.mimetype };
+			}),
 			user: {
 				_id: petOwner._id,
 				name: petOwner.name,
@@ -190,12 +192,9 @@ module.exports = class PetController {
 		};
 
 		if (images.length) {
-			pet.images.forEach((image) => {
-				fs.unlink(`public/images/pets/${image}`, (err) => {
-					if (err) console.log(err);
-				});
+			updatedData.images = images.map((image) => {
+				return { data: image.buffer, contentType: image.mimetype };
 			});
-			updatedData.images = images.map((image) => image.filename);
 		}
 
 		try {

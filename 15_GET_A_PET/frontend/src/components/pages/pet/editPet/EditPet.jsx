@@ -5,6 +5,7 @@ import useFlashMessage from "../../../../hooks/useFlashMessage";
 import api from "../../../../utils/api";
 import PetForm from "../../../form/petForm/PetForm";
 import { useEffect, useState } from "react";
+import { Buffer } from "buffer";
 
 const EditPet = () => {
 	const { setFlashMessage } = useFlashMessage();
@@ -13,23 +14,28 @@ const EditPet = () => {
 	const { id } = useParams();
 
 	useEffect(() => {
-		if (id) {
-			getPet(id);
-		}
+		getPet(id);
 	}, [id]);
 
-	const getPet = (id) => {
-		api.get(`/pet/${id}`)
-			.then(({ data }) => {
-				setPet(data.pet);
-			})
-			.catch((error) => {
-				const message =
-					error.response?.data.message || "Erro inesperado!";
-				const type = "error";
-				console.error("Error: " + error);
-				setFlashMessage(message, type);
-			});
+	const getPet = () => {
+		if (id) {
+			api.get(`/pet/${id}`)
+				.then(({ data }) => {
+					const photos = data.pet.images.map((image) => {
+						const buffer = Buffer.from(image.data).toString("base64");
+						const photo = `data:${image.contentType};base64,${buffer}`;
+						return photo;
+					});
+					data.pet.photos = photos;
+					setPet(data.pet);
+				})
+				.catch((error) => {
+					const message = error.response?.data.message || "Erro inesperado!";
+					const type = "error";
+					console.error("Error: " + error);
+					setFlashMessage(message, type);
+				});
+		}
 	};
 
 	const editPet = (petData) => {
@@ -73,13 +79,7 @@ const EditPet = () => {
 				<h1>Editando o Pet: {pet.name}</h1>
 				<p>Depois da edição os dados serão atualizados no sistema!</p>
 			</div>
-			{pet._id && (
-				<PetForm
-					btnText="Atualizar"
-					handleSubmit={editPet}
-					petData={pet}
-				/>
-			)}
+			{pet._id && <PetForm btnText="Atualizar" handleSubmit={editPet} petData={pet} />}
 		</section>
 	);
 };
