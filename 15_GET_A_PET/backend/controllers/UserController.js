@@ -4,9 +4,7 @@ const getUserByToken = require("../helpers/get-user-by-token");
 const { User } = require("../models");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const fs = require("fs");
 const { isValidObjectId } = require("mongoose");
-const { log } = require("console");
 
 module.exports = class UserController {
 	static async register(req, res) {
